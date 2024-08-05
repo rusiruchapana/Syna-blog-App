@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "post_table")
+@Table(name = "post_table" , uniqueConstraints = {@UniqueConstraint(columnNames = "title")})
 public class Post {
 
     @Id
