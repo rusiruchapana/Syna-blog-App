@@ -1,6 +1,5 @@
 package com.rusiruchapana.Syna.blog.app.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
