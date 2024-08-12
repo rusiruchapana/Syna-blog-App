@@ -1,7 +1,8 @@
 package com.rusiruchapana.Syna.blog.app.service;
 
-import org.springframework.stereotype.Service;
+import com.rusiruchapana.Syna.blog.app.dto.request.PostRequestDTO;
+import com.rusiruchapana.Syna.blog.app.dto.response.PostResponseDTO;
 
-@Service
 public interface PostService {
+    PostResponseDTO createPost(PostRequestDTO postRequestDTO);
 }
