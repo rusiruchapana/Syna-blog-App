@@ -44,4 +44,13 @@ public class PostController {
         );
     }
 
+    @PutMapping(params = "id")
+    public ResponseEntity<PostResponseDTO> updatePostById(@RequestBody PostRequestDTO postRequestDTO , @RequestParam("id") Long postId){
+        PostResponseDTO postResponseDTO = postService.updatePostById(postRequestDTO , postId);
+        return new ResponseEntity<>(
+                postResponseDTO,
+                HttpStatus.OK
+        );
+    }
+
 }
