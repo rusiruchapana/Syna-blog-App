@@ -9,6 +9,8 @@ import com.rusiruchapana.Syna.blog.app.util.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostServiceImpl implements PostService {
 
@@ -26,4 +28,13 @@ public class PostServiceImpl implements PostService {
         PostResponseDTO postResponseDTO = postMapper.entityToDto(post);
         return postResponseDTO;
     }
+
+    @Override
+    public List<PostResponseDTO> getAllPosts() {
+        List<Post> posts = postRepository.findAll();
+        List<PostResponseDTO> postResponseDTOS = postMapper.entityToDto(posts);
+        return postResponseDTOS;
+    }
+
+
 }
