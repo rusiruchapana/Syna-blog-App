@@ -10,7 +10,7 @@ public interface PostService {
     PostResponseDTO createPost(PostRequestDTO postRequestDTO);
 
 
-    List<PostResponseDTO> getAllPosts();
+    List<PostResponseDTO> getAllPosts(int pageNo , int pageSize);
 
     PostResponseDTO getPostById(Long postId);
 

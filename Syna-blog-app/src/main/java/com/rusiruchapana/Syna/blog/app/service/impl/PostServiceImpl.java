@@ -8,6 +8,8 @@ import com.rusiruchapana.Syna.blog.app.repository.PostRepository;
 import com.rusiruchapana.Syna.blog.app.service.PostService;
 import com.rusiruchapana.Syna.blog.app.util.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,9 +36,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostResponseDTO> getAllPosts() {
-        List<Post> posts = postRepository.findAll();
-        List<PostResponseDTO> postResponseDTOS = postMapper.entityToDto(posts);
+    public List<PostResponseDTO> getAllPosts(int pageNo , int pageSize) {
+
+        Page<Post> posts = postRepository.findAll(PageRequest.of(pageNo , pageSize));
+
+        List<Post> posts1 = posts.getContent();
+        List<PostResponseDTO> postResponseDTOS = postMapper.entityToDto(posts1);
         return postResponseDTOS;
     }
 
