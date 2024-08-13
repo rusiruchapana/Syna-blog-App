@@ -53,4 +53,13 @@ public class PostController {
         );
     }
 
+    @DeleteMapping(params = "id")
+    public ResponseEntity<String> deletePost(@RequestParam("id") Long postId){
+        String msg = postService.deletePostById(postId);
+        return new ResponseEntity<>(
+                msg,
+                HttpStatus.OK
+        );
+    }
+
 }

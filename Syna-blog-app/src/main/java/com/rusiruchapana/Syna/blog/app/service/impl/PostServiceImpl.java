@@ -8,7 +8,9 @@ import com.rusiruchapana.Syna.blog.app.repository.PostRepository;
 import com.rusiruchapana.Syna.blog.app.service.PostService;
 import com.rusiruchapana.Syna.blog.app.util.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -63,6 +65,18 @@ public class PostServiceImpl implements PostService {
             return postResponseDTO;
 
         }else {
+            throw new ResourceNotFoundException("Post", "id", Long.toString(postId));
+        }
+
+    }
+
+    @Override
+    public String deletePostById(Long postId) {
+        Optional<Post> post = postRepository.findById(postId);
+        if(post.isPresent()){
+            postRepository.deleteById(postId);
+            return "Post deleted sucess.";
+        }else{
             throw new ResourceNotFoundException("Post", "id", Long.toString(postId));
         }
 
