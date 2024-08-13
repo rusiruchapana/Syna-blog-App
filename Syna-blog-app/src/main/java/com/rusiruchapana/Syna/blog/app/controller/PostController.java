@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/api/v1/post")
+@RequestMapping(path = "/api/post")
 public class PostController {
 
     @Autowired
@@ -20,7 +20,6 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<PostResponseDTO> createPost(@RequestBody PostRequestDTO postRequestDTO){
-        System.out.println("test");
         PostResponseDTO postResponseDTO = postService.createPost(postRequestDTO);
         return new ResponseEntity<>(
                 postResponseDTO,
