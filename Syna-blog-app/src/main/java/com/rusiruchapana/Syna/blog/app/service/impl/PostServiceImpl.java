@@ -3,6 +3,7 @@ package com.rusiruchapana.Syna.blog.app.service.impl;
 import com.rusiruchapana.Syna.blog.app.dto.request.PostRequestDTO;
 import com.rusiruchapana.Syna.blog.app.dto.response.PostResponseDTO;
 import com.rusiruchapana.Syna.blog.app.entity.Post;
+import com.rusiruchapana.Syna.blog.app.exception.ResourceNotFoundException;
 import com.rusiruchapana.Syna.blog.app.repository.PostRepository;
 import com.rusiruchapana.Syna.blog.app.service.PostService;
 import com.rusiruchapana.Syna.blog.app.util.PostMapper;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -34,6 +36,16 @@ public class PostServiceImpl implements PostService {
         List<Post> posts = postRepository.findAll();
         List<PostResponseDTO> postResponseDTOS = postMapper.entityToDto(posts);
         return postResponseDTOS;
+    }
+
+    @Override
+    public PostResponseDTO getPostById(Long postId) {
+        Optional<Post> post = postRepository.findById(postId);
+        if(post.isPresent()){
+            return (postMapper.entityToDto(post.get()));
+        }else {
+            throw new ResourceNotFoundException("Post","id",Long.toString(postId));
+        }
     }
 
 

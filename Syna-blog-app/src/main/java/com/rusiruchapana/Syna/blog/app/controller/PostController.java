@@ -35,4 +35,13 @@ public class PostController {
         );
     }
 
+    @GetMapping(params = "id")
+    public ResponseEntity<PostResponseDTO> getPostById(@RequestParam("id") Long postId){
+        PostResponseDTO postResponseDTO = postService.getPostById(postId);
+        return new ResponseEntity<>(
+                postResponseDTO,
+                HttpStatus.OK
+        );
+    }
+
 }
