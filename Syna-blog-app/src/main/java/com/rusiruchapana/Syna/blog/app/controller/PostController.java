@@ -34,7 +34,6 @@ public class PostController {
             @RequestParam(name = "sort", required = false) String sortBy
     )
     {
-        System.out.println("test");
         PaginatedPostResponseDTO paginatedPostResponseDTO = postService.getAllPosts(pageNo , pageSize, sortBy);
         return new ResponseEntity<>(
                 paginatedPostResponseDTO,
