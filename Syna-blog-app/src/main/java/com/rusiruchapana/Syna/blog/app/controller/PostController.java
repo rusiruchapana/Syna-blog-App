@@ -27,12 +27,14 @@ public class PostController {
         );
     }
 
-    @GetMapping(params = {"no","size"})
+    @GetMapping(params = {"no","size,sortBy"})
     public ResponseEntity<PaginatedPostResponseDTO> getAllPosts(
             @RequestParam(name = "no", defaultValue = "0", required = false) int pageNo ,
-            @RequestParam(name = "size", defaultValue = "10", required = false) int pageSize)
+            @RequestParam(name = "size", defaultValue = "10", required = false) int pageSize,
+            @RequestParam(name = "sortBy", defaultValue = "id", required = false) String sortBy
+    )
     {
-        PaginatedPostResponseDTO paginatedPostResponseDTO = postService.getAllPosts(pageNo , pageSize);
+        PaginatedPostResponseDTO paginatedPostResponseDTO = postService.getAllPosts(pageNo , pageSize, sortBy);
         return new ResponseEntity<>(
                 paginatedPostResponseDTO,
                 HttpStatus.OK

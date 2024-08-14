@@ -11,9 +11,8 @@ import com.rusiruchapana.Syna.blog.app.util.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,9 +36,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PaginatedPostResponseDTO getAllPosts(int pageNo , int pageSize) {
+    public PaginatedPostResponseDTO getAllPosts(int pageNo , int pageSize, String sortBy) {
 
-        Page<Post> posts = postRepository.findAll(PageRequest.of(pageNo , pageSize));
+        Page<Post> posts = postRepository.findAll(PageRequest.of(pageNo , pageSize, Sort.by(sortBy)));
 
         List<Post> posts1 = posts.getContent();
         List<PostResponseDTO> postResponseDTOS = postMapper.entityToDto(posts1);
