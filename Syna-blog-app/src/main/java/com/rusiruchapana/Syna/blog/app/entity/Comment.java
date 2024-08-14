@@ -24,4 +24,8 @@ public class Comment {
 
     @Column(nullable = false)
     private String body;
+
+    @ManyToOne
+    @JoinColumn(name="post_id", nullable=false)
+    private Post post;
 }
