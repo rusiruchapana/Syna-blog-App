@@ -12,9 +12,9 @@ import java.util.List;
 public class PaginatedPostResponseDTO {
 
     private List<PostResponseDTO> content;
-    private Long pageNo;
-    private Long pageSize;
-    private Long totalElements;
-    private Long totalPages;
-    private Long last;
+    private int pageNo;
+    private int pageSize;
+    private int totalElements;
+    private int totalPages;
+    private Boolean last;
 }

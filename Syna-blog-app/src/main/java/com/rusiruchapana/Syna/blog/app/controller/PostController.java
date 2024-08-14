@@ -1,6 +1,7 @@
 package com.rusiruchapana.Syna.blog.app.controller;
 
 import com.rusiruchapana.Syna.blog.app.dto.request.PostRequestDTO;
+import com.rusiruchapana.Syna.blog.app.dto.response.PaginatedPostResponseDTO;
 import com.rusiruchapana.Syna.blog.app.dto.response.PostResponseDTO;
 import com.rusiruchapana.Syna.blog.app.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +28,13 @@ public class PostController {
     }
 
     @GetMapping(params = {"no","size"})
-    public ResponseEntity<List<PostResponseDTO>> getAllPosts(
+    public ResponseEntity<PaginatedPostResponseDTO> getAllPosts(
             @RequestParam(name = "no", defaultValue = "0", required = false) int pageNo ,
             @RequestParam(name = "size", defaultValue = "10", required = false) int pageSize)
     {
-
-        System.out.println("test");
-        List<PostResponseDTO> postResponseDTO = postService.getAllPosts(pageNo , pageSize);
+        PaginatedPostResponseDTO paginatedPostResponseDTO = postService.getAllPosts(pageNo , pageSize);
         return new ResponseEntity<>(
-                postResponseDTO,
+                paginatedPostResponseDTO,
                 HttpStatus.OK
         );
     }

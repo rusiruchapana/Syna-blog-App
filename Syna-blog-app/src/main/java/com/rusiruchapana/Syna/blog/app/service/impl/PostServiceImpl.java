@@ -1,6 +1,7 @@
 package com.rusiruchapana.Syna.blog.app.service.impl;
 
 import com.rusiruchapana.Syna.blog.app.dto.request.PostRequestDTO;
+import com.rusiruchapana.Syna.blog.app.dto.response.PaginatedPostResponseDTO;
 import com.rusiruchapana.Syna.blog.app.dto.response.PostResponseDTO;
 import com.rusiruchapana.Syna.blog.app.entity.Post;
 import com.rusiruchapana.Syna.blog.app.exception.ResourceNotFoundException;
@@ -36,13 +37,25 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostResponseDTO> getAllPosts(int pageNo , int pageSize) {
+    public PaginatedPostResponseDTO getAllPosts(int pageNo , int pageSize) {
 
         Page<Post> posts = postRepository.findAll(PageRequest.of(pageNo , pageSize));
 
         List<Post> posts1 = posts.getContent();
         List<PostResponseDTO> postResponseDTOS = postMapper.entityToDto(posts1);
-        return postResponseDTOS;
+
+        PaginatedPostResponseDTO paginatedPostResponseDTO = new PaginatedPostResponseDTO(
+                postResponseDTOS,
+                pageNo,
+                pageSize,
+                (int) posts.getTotalElements(),
+                posts.getTotalPages(),
+                posts.isLast()
+
+        );
+
+
+        return paginatedPostResponseDTO;
     }
 
     @Override
