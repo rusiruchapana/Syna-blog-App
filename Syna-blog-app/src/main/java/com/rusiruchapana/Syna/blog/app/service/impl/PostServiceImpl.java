@@ -36,9 +36,17 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PaginatedPostResponseDTO getAllPosts(int pageNo , int pageSize, String sortBy) {
+    public PaginatedPostResponseDTO getAllPosts(int pageNo , int pageSize, String sortBy, String dir) {
 
-        Page<Post> posts = postRepository.findAll(PageRequest.of(pageNo , pageSize, Sort.by(sortBy)));
+
+        Sort sort = Sort.unsorted();
+        if(dir.equalsIgnoreCase("asc")){
+            sort = Sort.by(sortBy).ascending();
+        }else {
+            sort = Sort.by(sortBy).descending();
+        }
+
+        Page<Post> posts = postRepository.findAll(PageRequest.of(pageNo , pageSize, sort));
 
         List<Post> posts1 = posts.getContent();
         List<PostResponseDTO> postResponseDTOS = postMapper.entityToDto(posts1);
