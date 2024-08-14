@@ -14,6 +14,9 @@ import java.util.Set;
 @Table(name = "post_table")
 public class Post {
 
+    public Post(Long postId, String title, String content, String description) {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -30,6 +33,5 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private Set<Comment> comments;
 
-    public Post(Long postId, String title, String content, String description) {
-    }
+
 }
