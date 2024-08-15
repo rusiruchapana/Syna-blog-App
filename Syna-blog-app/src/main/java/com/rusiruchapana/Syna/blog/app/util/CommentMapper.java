@@ -6,9 +6,12 @@ import com.rusiruchapana.Syna.blog.app.dto.response.CommentResponseDTO;
 import com.rusiruchapana.Syna.blog.app.entity.Comment;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
 
     Comment dtoToEntity(CommentRequestDTO commentRequestDTO);
     CommentResponseDTO entityToDto(Comment comment);
+    List<CommentResponseDTO> entityToDto(List<Comment> comments);
 }

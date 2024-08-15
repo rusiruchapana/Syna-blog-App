@@ -12,6 +12,7 @@ import com.rusiruchapana.Syna.blog.app.util.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,4 +43,13 @@ public class CommentServiceImpl implements CommentService {
             throw new ResourceNotFoundException("Comment", "id", Long.toString(postId));
         }
     }
+
+    @Override
+    public List<CommentResponseDTO> getAllComments(Long postId) {
+        List<Comment> comments = commentRepository.findByPostId(postId);
+        List<CommentResponseDTO> commentResponseDTOS = commentMapper.entityToDto(comments);
+        return commentResponseDTOS;
+    }
+
+
 }
