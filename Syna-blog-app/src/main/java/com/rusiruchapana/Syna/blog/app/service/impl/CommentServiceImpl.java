@@ -56,16 +56,34 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentResponseDTO getComment(Long postId, Long commentId) {
 
-        Post post1 = postRepository.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post","id",Long.toString(postId)));
-        Comment comment1 = commentRepository.findById(commentId).orElseThrow(()-> new  ResourceNotFoundException("Comment","id",Long.toString(commentId)));
+        Post post = postRepository.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post","id",Long.toString(postId)));
+        Comment comment = commentRepository.findById(commentId).orElseThrow(()-> new  ResourceNotFoundException("Comment","id",Long.toString(commentId)));
 
-        if(comment1.getPost().getId() == post1.getId()){
-            return commentMapper.entityToDto(comment1);
+        if(comment.getPost().getId() == post.getId()){
+            return commentMapper.entityToDto(comment);
         }else {
             throw new BlogApiException(HttpStatus.BAD_REQUEST , "Comment not exist.");
         }
     }
 
+    @Override
+    public CommentResponseDTO updateComment(Long postId, Long commentId, CommentRequestDTO commentRequestDTO) {
+
+        Post post = postRepository.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post", "id", Long.toString(postId)));
+        Comment comment = commentRepository.findById(commentId).orElseThrow(()-> new ResourceNotFoundException("Comment", "id", Long.toString(commentId)));
+
+        if(comment.getPost().getId().equals(post.getId())){
+            comment.setName(commentRequestDTO.getName());
+            comment.setEmail(commentRequestDTO.getEmail());
+            comment.setBody(commentRequestDTO.getBody());
+
+            commentRepository.save(comment);
+            CommentResponseDTO commentResponseDTO = commentMapper.entityToDto(comment);
+            return commentResponseDTO;
+        }else {
+            throw new BlogApiException(HttpStatus.BAD_REQUEST , "Comment is not exist in the post.");
+        }
+    }
 
 
 }

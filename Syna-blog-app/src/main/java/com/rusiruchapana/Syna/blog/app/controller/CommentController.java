@@ -44,4 +44,17 @@ public class CommentController {
                 HttpStatus.OK
         );
     }
+
+    @PutMapping(params = {"post_id","comment_id"})
+    public ResponseEntity<CommentResponseDTO> updateCommentById(
+            @RequestParam("post_id") Long postId,
+            @RequestParam("comment_id")  Long commentId,
+            @RequestBody  CommentRequestDTO commentRequestDTO)
+    {
+        CommentResponseDTO commentResponseDTO =  commentService.updateComment(postId, commentId, commentRequestDTO);
+        return new ResponseEntity<>(
+                commentResponseDTO,
+                HttpStatus.OK
+        );
+    }
 }
