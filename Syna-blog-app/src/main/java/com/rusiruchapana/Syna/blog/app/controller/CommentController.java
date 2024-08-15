@@ -35,6 +35,13 @@ public class CommentController {
         );
     }
 
-
-
+    @GetMapping(params = {"post_id","comment_id"})
+    public ResponseEntity<CommentResponseDTO> getCommentById(@RequestParam("post_id") Long postId , @RequestParam("comment_id") Long commentId){
+        System.out.println("Test 1");
+        CommentResponseDTO commentResponseDTO = commentService.getComment(postId , commentId);
+        return new ResponseEntity<>(
+                commentResponseDTO,
+                HttpStatus.OK
+        );
+    }
 }

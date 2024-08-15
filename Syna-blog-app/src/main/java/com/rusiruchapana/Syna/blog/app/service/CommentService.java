@@ -8,4 +8,6 @@ import java.util.List;
 public interface CommentService {
     CommentResponseDTO createComment(Long postId, CommentRequestDTO commentRequestDTO);
     List<CommentResponseDTO> getAllComments(Long postId);
+
+    CommentResponseDTO getComment(Long postId, Long commentId);
 }

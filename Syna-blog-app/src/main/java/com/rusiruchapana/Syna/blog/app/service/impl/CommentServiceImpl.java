@@ -4,12 +4,14 @@ import com.rusiruchapana.Syna.blog.app.dto.request.CommentRequestDTO;
 import com.rusiruchapana.Syna.blog.app.dto.response.CommentResponseDTO;
 import com.rusiruchapana.Syna.blog.app.entity.Comment;
 import com.rusiruchapana.Syna.blog.app.entity.Post;
+import com.rusiruchapana.Syna.blog.app.exception.BlogApiException;
 import com.rusiruchapana.Syna.blog.app.exception.ResourceNotFoundException;
 import com.rusiruchapana.Syna.blog.app.repository.CommentRepository;
 import com.rusiruchapana.Syna.blog.app.repository.PostRepository;
 import com.rusiruchapana.Syna.blog.app.service.CommentService;
 import com.rusiruchapana.Syna.blog.app.util.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,6 +52,23 @@ public class CommentServiceImpl implements CommentService {
         List<CommentResponseDTO> commentResponseDTOS = commentMapper.entityToDto(comments);
         return commentResponseDTOS;
     }
+
+    @Override
+    public CommentResponseDTO getComment(Long postId, Long commentId) {
+
+        Optional<Post> post = postRepository.findById(postId);
+        Optional<Comment> comment = commentRepository.findById(commentId);
+
+        Post post1 = post.get();
+        Comment comment1 = comment.get();
+
+        if(comment1.getPost().getId() == post1.getId()){
+            return commentMapper.entityToDto(comment1);
+        }else {
+            throw new BlogApiException(HttpStatus.BAD_REQUEST , "Comment not exist.");
+        }
+    }
+
 
 
 }
