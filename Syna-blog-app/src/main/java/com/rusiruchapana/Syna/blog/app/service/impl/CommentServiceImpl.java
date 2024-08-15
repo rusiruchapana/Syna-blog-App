@@ -56,11 +56,8 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentResponseDTO getComment(Long postId, Long commentId) {
 
-        Optional<Post> post = postRepository.findById(postId);
-        Optional<Comment> comment = commentRepository.findById(commentId);
-
-        Post post1 = post.get();
-        Comment comment1 = comment.get();
+        Post post1 = postRepository.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post","id",Long.toString(postId)));
+        Comment comment1 = commentRepository.findById(commentId).orElseThrow(()-> new  ResourceNotFoundException("Comment","id",Long.toString(commentId)));
 
         if(comment1.getPost().getId() == post1.getId()){
             return commentMapper.entityToDto(comment1);
