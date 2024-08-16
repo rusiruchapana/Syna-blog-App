@@ -57,4 +57,14 @@ public class CommentController {
                 HttpStatus.OK
         );
     }
+
+    @DeleteMapping(params = {"post_id","comment_id"})
+    public ResponseEntity<String> deleteCommentById(@RequestParam("post_id") Long postId , @RequestParam("comment_id") Long commentId){
+        String msg = commentService.deleteComment(postId , commentId);
+        return new ResponseEntity<>(
+                msg,
+                HttpStatus.OK
+        );
+    }
+
 }

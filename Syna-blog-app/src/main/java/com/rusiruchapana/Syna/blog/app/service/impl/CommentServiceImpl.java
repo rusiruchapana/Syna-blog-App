@@ -85,5 +85,17 @@ public class CommentServiceImpl implements CommentService {
         }
     }
 
+    @Override
+    public String deleteComment(Long postId, Long commentId) {
+        Post post = postRepository.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post", "id", Long.toString(postId)));
+        Comment comment = commentRepository.findById(commentId).orElseThrow(()-> new ResourceNotFoundException("Comment", "id", Long.toString(commentId)));
+        if(comment.getPost().getId().equals(post.getId())){
+            commentRepository.deleteById(commentId);
+            return "Sucessfully deleted comment";
+        }else {
+            throw new BlogApiException(HttpStatus.BAD_REQUEST , "Comment is not exist in the post.");
+        }
+    }
+
 
 }
