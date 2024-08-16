@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
     ){
         ErrorDetails errorDetails = new ErrorDetails(
                 new Date(),
-                blogApiException.getMessage(), 
+                blogApiException.getMessage(),
                 webRequest.getDescription(false)
         );
 
