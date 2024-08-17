@@ -4,6 +4,7 @@ import com.rusiruchapana.Syna.blog.app.dto.request.PostRequestDTO;
 import com.rusiruchapana.Syna.blog.app.dto.response.PaginatedPostResponseDTO;
 import com.rusiruchapana.Syna.blog.app.dto.response.PostResponseDTO;
 import com.rusiruchapana.Syna.blog.app.service.PostService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class PostController {
     private PostService postService;
 
     @PostMapping
-    public ResponseEntity<PostResponseDTO> createPost(@RequestBody PostRequestDTO postRequestDTO){
+    public ResponseEntity<PostResponseDTO> createPost(@Valid @RequestBody PostRequestDTO postRequestDTO){
         PostResponseDTO postResponseDTO = postService.createPost(postRequestDTO);
         return new ResponseEntity<>(
                 postResponseDTO,
@@ -52,7 +53,7 @@ public class PostController {
     }
 
     @PutMapping(params = "id")
-    public ResponseEntity<PostResponseDTO> updatePostById(@RequestBody PostRequestDTO postRequestDTO , @RequestParam("id") Long postId){
+    public ResponseEntity<PostResponseDTO> updatePostById(@Valid @RequestBody PostRequestDTO postRequestDTO , @RequestParam("id") Long postId){
         PostResponseDTO postResponseDTO = postService.updatePostById(postRequestDTO , postId);
         return new ResponseEntity<>(
                 postResponseDTO,
