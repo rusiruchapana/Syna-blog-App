@@ -28,12 +28,12 @@ public class PostController {
         );
     }
 
-    @GetMapping(params = {"no","size","sort","sortDir"})
+    @GetMapping
     public ResponseEntity<PaginatedPostResponseDTO> getAllPosts(
-            @RequestParam(name = "no", defaultValue = "0", required = false) int pageNo ,
-            @RequestParam(name = "size", defaultValue = "10", required = false) int pageSize,
-            @RequestParam(name = "sort", required = false) String sortBy,
-            @RequestParam(name = "sortDir", required = false) String dir
+            @RequestParam(value = "no", defaultValue = "0", required = false) int pageNo,
+            @RequestParam(value = "size", defaultValue = "5", required = false) int pageSize,
+            @RequestParam(value = "sort", defaultValue = "id", required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String dir
     )
     {
         PaginatedPostResponseDTO paginatedPostResponseDTO = postService.getAllPosts(pageNo , pageSize, sortBy, dir);
@@ -42,6 +42,10 @@ public class PostController {
                 HttpStatus.OK
         );
     }
+
+
+
+
 
     @GetMapping(params = "id")
     public ResponseEntity<PostResponseDTO> getPostById(@RequestParam("id") Long postId){
