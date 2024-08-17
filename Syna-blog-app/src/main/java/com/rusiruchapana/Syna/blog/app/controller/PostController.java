@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+    @PreAuthorize("hasRole(ADMIN)")
     @PostMapping
     public ResponseEntity<PostResponseDTO> createPost(@Valid @RequestBody PostRequestDTO postRequestDTO){
         PostResponseDTO postResponseDTO = postService.createPost(postRequestDTO);
@@ -53,6 +55,7 @@ public class PostController {
         );
     }
 
+    @PreAuthorize("hasRole(ADMIN)")
     @PutMapping(params = "id")
     public ResponseEntity<PostResponseDTO> updatePostById(@Valid @RequestBody PostRequestDTO postRequestDTO , @RequestParam("id") Long postId){
         PostResponseDTO postResponseDTO = postService.updatePostById(postRequestDTO , postId);
