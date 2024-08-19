@@ -20,7 +20,7 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @PreAuthorize("hasRole(ADMIN)")
+
     @PostMapping
     public ResponseEntity<PostResponseDTO> createPost(@Valid @RequestBody PostRequestDTO postRequestDTO){
         PostResponseDTO postResponseDTO = postService.createPost(postRequestDTO);
@@ -55,7 +55,7 @@ public class PostController {
         );
     }
 
-    @PreAuthorize("hasRole(ADMIN)")
+
     @PutMapping(params = "id")
     public ResponseEntity<PostResponseDTO> updatePostById(@Valid @RequestBody PostRequestDTO postRequestDTO , @RequestParam("id") Long postId){
         PostResponseDTO postResponseDTO = postService.updatePostById(postRequestDTO , postId);
