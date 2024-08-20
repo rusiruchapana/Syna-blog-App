@@ -2,7 +2,6 @@ package com.rusiruchapana.security.test.controller;
 
 import com.rusiruchapana.security.test.dto.request.PostRequestDTO;
 import com.rusiruchapana.security.test.dto.response.PostResponseDTO;
-import com.rusiruchapana.security.test.entity.Post;
 import com.rusiruchapana.security.test.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
