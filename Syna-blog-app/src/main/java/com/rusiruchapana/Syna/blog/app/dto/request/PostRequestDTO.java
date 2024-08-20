@@ -20,5 +20,6 @@ public class PostRequestDTO {
     private String description;
 
     @NotEmpty
+    @Size(min = 10 , message = "Post title should have minimum 10 charactors.")
     private String content;
 }
