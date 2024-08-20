@@ -42,4 +42,14 @@ public class PostServiceImpl implements PostService {
             throw new ResourceNotFoundException("The given id is not in db.");
         }
     }
+
+    @Override
+    public PostResponseDTO updatePost(Long postId, PostRequestDTO postRequestDTO) {
+        Post post = postRepository.findById(postId).orElseThrow(()-> new ResourceNotFoundException("The given id is not in db."));
+        post.setTitle(postRequestDTO.getTitle());
+        post.setDescription(postRequestDTO.getDescription());
+        post.setContent(postRequestDTO.getContent());
+        postRepository.save(post);
+        return postMapper.entityToDTO(post);
+    }
 }
