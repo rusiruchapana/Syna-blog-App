@@ -52,4 +52,11 @@ public class PostServiceImpl implements PostService {
         postRepository.save(post);
         return postMapper.entityToDTO(post);
     }
+
+    @Override
+    public String deletePostById(Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(()-> new ResourceNotFoundException("The given id is not in db."));
+        postRepository.deleteById(postId);
+        return "Post deleted sucess.";
+    }
 }

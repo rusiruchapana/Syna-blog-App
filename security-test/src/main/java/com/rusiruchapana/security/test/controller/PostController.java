@@ -2,6 +2,7 @@ package com.rusiruchapana.security.test.controller;
 
 import com.rusiruchapana.security.test.dto.request.PostRequestDTO;
 import com.rusiruchapana.security.test.dto.response.PostResponseDTO;
+import com.rusiruchapana.security.test.entity.Post;
 import com.rusiruchapana.security.test.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,6 +49,15 @@ public class PostController {
         PostResponseDTO postResponseDTO = postService.updatePost(postId , postRequestDTO);
         return new ResponseEntity<>(
                 postResponseDTO,
+                HttpStatus.OK
+        );
+    }
+
+    @DeleteMapping(params = {"id"})
+    public ResponseEntity<String> deleteOnePost(@RequestParam("id") Long postId){
+        String msg = postService.deletePostById(postId);
+        return new ResponseEntity<>(
+                msg,
                 HttpStatus.OK
         );
     }
