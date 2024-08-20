@@ -9,6 +9,8 @@ import com.rusiruchapana.security.test.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostServiceImpl implements PostService {
 
@@ -21,5 +23,11 @@ public class PostServiceImpl implements PostService {
     public PostResponseDTO createPost(PostRequestDTO postRequestDTO) {
         Post post = postRepository.save(postMapper.dtoToEntity(postRequestDTO));
         return postMapper.entityToDTO(post);
+    }
+
+    @Override
+    public List<PostResponseDTO> getAllPosts() {
+        List<Post> posts = postRepository.findAll();
+        return postMapper.dtoToEntity(posts);
     }
 }

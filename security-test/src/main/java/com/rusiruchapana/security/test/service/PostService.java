@@ -4,7 +4,11 @@ import com.rusiruchapana.security.test.dto.request.PostRequestDTO;
 import com.rusiruchapana.security.test.dto.response.PostResponseDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface PostService {
     PostResponseDTO createPost(PostRequestDTO postRequestDTO);
+
+    List<PostResponseDTO> getAllPosts();
 }
