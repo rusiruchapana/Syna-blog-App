@@ -6,6 +6,7 @@ import com.rusiruchapana.security.test.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public class PostController {
 
     @Autowired
     private PostService postService;
+
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<PostResponseDTO> createPost(@RequestBody PostRequestDTO postRequestDTO){
         System.out.println("test");
@@ -44,6 +47,7 @@ public class PostController {
         );
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(params = {"id"})
     public ResponseEntity<PostResponseDTO> updatePost(@RequestParam("id") Long postId , @RequestBody PostRequestDTO postRequestDTO){
         PostResponseDTO postResponseDTO = postService.updatePost(postId , postRequestDTO);
@@ -53,6 +57,7 @@ public class PostController {
         );
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(params = {"id"})
     public ResponseEntity<String> deleteOnePost(@RequestParam("id") Long postId){
         String msg = postService.deletePostById(postId);
