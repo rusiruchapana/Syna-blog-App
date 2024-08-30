@@ -12,15 +12,13 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "role_table")
-public class Role {
+public class MyRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(nullable = false)
     private String name;
 
     @ManyToMany(mappedBy = "roles")
-    Set<User> roles;
+    Set<MyUser> users;
 }
