@@ -11,9 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+
 
 @Service
 public class CustomeUserDetailService implements UserDetailsService {
@@ -23,10 +22,7 @@ public class CustomeUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         MyUser user = myUserRepository.findByUsername(username).orElseThrow(()-> new UsernameNotFoundException(username));
-
         return new CustomUserDetails(user);
-
     }
 }

@@ -6,6 +6,8 @@ import com.rusiruchapana.security.test.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +18,15 @@ public class PostController {
 
     @Autowired
     private PostService postService;
+
+    @PostMapping("/login")
+    public String login(){
+        return "login sucess.";
+    }
+
+
+
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<PostResponseDTO> createPost(@RequestBody PostRequestDTO postRequestDTO){
         PostResponseDTO postResponseDTO = postService.createPost(postRequestDTO);
@@ -24,6 +35,7 @@ public class PostController {
                 HttpStatus.CREATED
         );
     }
+
 
     @GetMapping
     public ResponseEntity<List<PostResponseDTO>> getAllPost(){
@@ -34,6 +46,7 @@ public class PostController {
         );
     }
 
+
     @GetMapping(params = {"id"})
     public ResponseEntity<PostResponseDTO> getOnePost(@RequestParam("id") Long postId){
         PostResponseDTO postResponseDTO = postService.getPostById(postId);
@@ -43,6 +56,7 @@ public class PostController {
         );
     }
 
+
     @PutMapping(params = {"id"})
     public ResponseEntity<PostResponseDTO> updatePost(@RequestParam("id") Long postId , @RequestBody PostRequestDTO postRequestDTO){
         PostResponseDTO postResponseDTO = postService.updatePost(postId , postRequestDTO);
@@ -51,6 +65,7 @@ public class PostController {
                 HttpStatus.OK
         );
     }
+
 
     @DeleteMapping(params = {"id"})
     public ResponseEntity<String> deleteOnePost(@RequestParam("id") Long postId){
